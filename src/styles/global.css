@@ -73,3 +73,22 @@ a { color: inherit; text-decoration: none; }
   text-transform: uppercase;
   color: var(--moss);
 }
+
+/* Hero: stacked on mobile, two columns on wider screens. */
+.hero-grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.hero-img {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 20px;
+  display: block;
+}
+@media (min-width: 880px) {
+  .hero-grid { grid-template-columns: 1.05fr 0.95fr; }
+}

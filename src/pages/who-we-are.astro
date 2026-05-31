@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Team from the current site. TODO: add real therapist photos (drop into
+// /public/images/team and swap the initial avatars for <img>).
+const team = ["Kelly", "Jasmine", "Amy", "Eileen", "Tina", "Yuki", "Lele", "Baby", "Anna", "Miko", "Eilln"];
+---
+
+<BaseLayout
+  title="Who we are | Tree House Spa, River Valley"
+  description="Meet the team at Tree House Spa on River Valley Road. Professionally trained massage therapists in a clean, comfortable setting, open daily 10am to 10:30pm."
+  canonical="/who-we-are/"
+>
+  <!-- Intro -->
+  <section style="background:linear-gradient(180deg, var(--sand) 0%, var(--sand-deep) 100%);">
+    <div class="container" style="padding-block:clamp(3rem,7vw,5rem);max-width:680px;">
+      <div class="eyebrow">Who we are</div>
+      <h1 style="margin:1rem 0 0;font-size:clamp(2.2rem,5vw,3.2rem);line-height:1.08;">Meet our team</h1>
+      <p style="margin-top:1.5rem;font-size:1.1rem;color:var(--ink-dim);line-height:1.7;">
+        Located at 238 River Valley Road, Tree House Spa focuses on providing good quality massages at affordable prices.
+      </p>
+      <p style="margin-top:1rem;font-size:1.1rem;color:var(--ink-dim);line-height:1.7;">
+        We pride ourselves on providing a clean and comfortable environment for our customers, and on ensuring our massage
+        technicians are professionally trained to send you home relaxed.
+      </p>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section>
+    <div class="container" style="padding-block:clamp(3rem,6vw,5rem);">
+      <div class="eyebrow">Our therapists</div>
+      <h2 style="margin:0.75rem 0 2.5rem;font-size:clamp(1.7rem,3.2vw,2.3rem);">The people who'll look after you</h2>
+      <div style="display:grid;gap:1.5rem 1rem;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));">
+        {team.map((name) => (
+          <div style="text-align:center;">
+            <div aria-hidden="true" style="width:84px;height:84px;margin:0 auto;border-radius:50%;background:color-mix(in srgb, var(--moss) 16%, var(--cream));color:var(--moss);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:1.9rem;border:1px solid var(--hair);">
+              {name[0]}
+            </div>
+            <div style="margin-top:0.75rem;font-weight:600;font-size:0.95rem;">{name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our space (location gallery placeholder) -->
+  <section id="space" style="background:var(--sand-deep);">
+    <div class="container" style="padding-block:clamp(3rem,6vw,5rem);max-width:680px;">
+      <div class="eyebrow">Our space</div>
+      <h2 style="margin:0.75rem 0 0;font-size:clamp(1.7rem,3.2vw,2.3rem);">Inside our River Valley spa</h2>
+      <p style="margin-top:1.25rem;color:var(--ink-dim);font-size:1.05rem;line-height:1.7;">
+        A calm, private setting kept to a high standard of cleanliness. {/* TODO: add interior photos as a gallery */}
+      </p>
+    </div>
+  </section>
+
+  <!-- Visit -->
+  <section id="visit">
+    <div class="container" style="padding-block:clamp(3rem,6vw,5rem);display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+      <div>
+        <div class="eyebrow">Visit us</div>
+        <h2 style="margin:0.75rem 0 1.25rem;font-size:clamp(1.6rem,3vw,2.1rem);">Drop by or call ahead</h2>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="tel:+6562356233" class="btn">Call +65 6235 6233</a>
+          <a href="https://maps.google.com/?q=238+River+Valley+Road+Singapore+238296" target="_blank" rel="noopener" class="btn-ghost">Get directions</a>
+        </div>
+      </div>
+      <div style="font-size:1rem;color:var(--ink-dim);line-height:1.9;">
+        <div><strong style="color:var(--bark);">Address</strong><br />238 River Valley Road<br />Singapore 238296</div>
+        <div style="margin-top:1rem;"><strong style="color:var(--bark);">Open</strong><br />Daily, 10am to 10:30pm</div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
