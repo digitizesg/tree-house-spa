@@ -21,10 +21,11 @@ const ROOT = resolve(__filename, '../..')
 const OUT = resolve(ROOT, 'src/data/reviews.json')
 
 const apiKey = process.env.GOOGLE_PLACES_API_KEY
-const placeId = process.env.GOOGLE_PLACE_ID
+// Tree House Spa, 238 River Valley Road. Override with GOOGLE_PLACE_ID if needed.
+const placeId = process.env.GOOGLE_PLACE_ID || 'ChIJh9kHG5kZ2jER7YWaAoay7Ps'
 
-if (!apiKey || !placeId) {
-  console.error('Missing env. Set GOOGLE_PLACES_API_KEY and GOOGLE_PLACE_ID, then re-run.')
+if (!apiKey) {
+  console.error('Missing env. Set GOOGLE_PLACES_API_KEY, then re-run.')
   process.exit(1)
 }
 
@@ -45,9 +46,18 @@ const place = body.result ?? {}
 const rating = Number(place.rating ?? 0)
 const count = Number(place.user_ratings_total ?? 0)
 
+// Drop reviews containing off-brand / inappropriate language so they never
+// appear on the public site. Add terms here as needed.
+const BLOCKED_TERMS = ['happy ending', 'happy-ending', 'happy endings']
+const isClean = (text) => {
+  const t = (text || '').toLowerCase()
+  return !BLOCKED_TERMS.some((term) => t.includes(term))
+}
+
 // Keep only 4- and 5-star reviews; strip author photos (we restyle).
 const reviews = (place.reviews ?? [])
   .filter((r) => typeof r.rating === 'number' && r.rating >= 4)
+  .filter((r) => isClean(r.text))
   .map((r) => ({
     author: r.author_name,
     rating: r.rating,

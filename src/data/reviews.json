@@ -1,6 +1,28 @@
 {
-  "rating": 0,
-  "count": 0,
-  "reviews": [],
-  "fetchedAt": null
+  "rating": 4.6,
+  "count": 153,
+  "reviews": [
+    {
+      "author": "Christian Longobardi",
+      "rating": 5,
+      "text": "One of the best massage I ever had until today in Singapore, after almost 11 years lived here.The lady name who did the massage her name is Mey from China( my best congrats :))",
+      "relativeTime": "3 months ago",
+      "timestamp": 1771314215
+    },
+    {
+      "author": "S.",
+      "rating": 5,
+      "text": "Excellent massage — firm, thorough, and exactly what I needed. Great value for the quality of service.",
+      "relativeTime": "6 months ago",
+      "timestamp": 1763388383
+    },
+    {
+      "author": "Sasikumar Manirasan",
+      "rating": 5,
+      "text": "Kelly & Eva were amazing. Kelly was a solid and warm front desk lady & Eva was very very strong, despite her small frame. She undid my pain and my knots and I felt better after showering. Awesome place, I will definitely come back again!",
+      "relativeTime": "7 months ago",
+      "timestamp": 1760368258
+    }
+  ],
+  "fetchedAt": "2026-05-31T13:16:36.493Z"
 }
