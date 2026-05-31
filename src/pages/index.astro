@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Reviews from "../components/Reviews.astro";
 
 // Real services + pricing from the current site (treehousespa.com.sg).
 const services = [
@@ -22,10 +23,10 @@ const services = [
       <div style="max-width:620px;">
         <div class="eyebrow">Massage &middot; River Valley, Singapore</div>
         <h1 style="margin:1rem 0 0;font-size:clamp(2.2rem,5.5vw,3.5rem);line-height:1.08;">
-          High quality massage,<br /><span style="color:var(--moss);font-style:italic;">at honest prices.</span>
+          High quality massage<br />on <span style="color:var(--moss);font-style:italic;">River Valley Road</span>
         </h1>
         <p style="margin-top:1.5rem;font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--ink-dim);line-height:1.65;max-width:52ch;">
-          A calm, spotless retreat on River Valley Road. Trained therapists, treatments for men and women, and more than twelve years of looking after our guests.
+          Our trained team has been providing massage services on River Valley Road for over 12 years. We provide massages to both men and women at highly affordable rates.
         </p>
         <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
           <a href="tel:+6562356233" class="btn">Call to book</a>
@@ -72,6 +73,9 @@ const services = [
       </p>
     </div>
   </section>
+
+  <!-- Reviews (hidden until reviews.json is populated) -->
+  <Reviews />
 
   <!-- Visit -->
   <section id="visit">
