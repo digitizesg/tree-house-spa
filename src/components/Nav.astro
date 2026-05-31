@@ -1,0 +1,22 @@
+---
+// TODO: confirm nav items once the page structure is set.
+const links = [
+  { href: "/#services", label: "Services" },
+  { href: "/#about", label: "About" },
+  { href: "/#visit", label: "Visit" },
+];
+---
+
+<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--sand) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:68px;">
+    <a href="/" aria-label="Tree House Spa home" style="display:flex;align-items:center;">
+      <img src="/images/ths-logo.svg" alt="Tree House Spa" style="height:34px;width:auto;display:block;" />
+    </a>
+    <nav style="display:flex;align-items:center;gap:1.75rem;">
+      {links.map((l) => (
+        <a href={l.href} style="font-size:0.95rem;color:var(--ink-dim);">{l.label}</a>
+      ))}
+      <a href="tel:+6562356233" class="btn">Call to book</a>
+    </nav>
+  </div>
+</header>
