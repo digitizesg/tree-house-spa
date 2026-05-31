@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Real services from the current site, with self-hosted icons.
+const services = [
+  {
+    name: "Body Massage",
+    icon: "/images/services/service-icon-1.png",
+    desc: "Our signature treatment to de-stress and relieve muscle pain. Rubbing and manipulation techniques improve lymphatic function and circulation, and can help ease tension-related headaches.",
+    benefits: ["Promotes skin health", "Increases blood circulation", "Reduces muscle pain", "Supports the lymphatic system", "Improves sleep"],
+    tiers: [["60 min", "$65"], ["90 min", "$90"], ["120 min", "$115"]],
+  },
+  {
+    name: "Essential Oils Massage",
+    icon: "/images/services/service-icon-3.png",
+    desc: "A relaxing treatment using essential oils, combining rubbing and manipulation to ease muscle soreness, support recovery and calm the mind.",
+    benefits: ["Promotes blood circulation", "Reduces muscle tiredness", "Aids detoxification", "Increases metabolism", "Reduces stress"],
+    tiers: [["60 min", "$72"], ["90 min", "$100"], ["120 min", "$130"]],
+  },
+  {
+    name: "Foot Massage",
+    icon: "/images/services/service-icon-4.png",
+    desc: "Reflexology that improves circulation and helps the body relax. Regular sessions support immune function and help remove toxins through deep relaxation.",
+    benefits: ["Promotes blood circulation", "Reduces muscle tiredness", "Aids detoxification", "Increases metabolism", "Reduces stress"],
+    tiers: [["60 min", "$48"], ["90 min", "$68"], ["120 min", "$88"]],
+  },
+  {
+    name: "Prenatal Massage",
+    icon: "/images/services/service-icon-5.png",
+    desc: "A gentle, non-invasive full-body treatment for expectant mothers, using a comfortable side-lying position to ease pregnancy discomfort, improve circulation and reduce swelling.",
+    benefits: ["Promotes skin health", "Increases blood circulation", "Reduces muscle stiffness", "Supports the lymphatic system", "Improves sleep"],
+    tiers: [["60 min", "$65"], ["90 min", "$90"], ["120 min", "$115"]],
+  },
+  {
+    name: "Ear Candling",
+    icon: "/images/services/service-icon-6.png",
+    desc: "An alternative therapy using gentle warm air to draw out earwax and impurities, supporting lymphatic drainage and clearer sinuses.",
+    benefits: ["Eases ear pressure", "Removes old earwax", "Improves circulation", "Clears the sinuses"],
+    tiers: [["30 min", "$35"]],
+  },
+  {
+    name: "Body Scrub",
+    icon: "/images/services/service-icon-2.png",
+    desc: "A 30-minute exfoliation that lifts away dead skin cells while cleansing and boosting circulation, leaving skin refreshed and renewed.",
+    benefits: ["Promotes blood circulation", "Moisturises skin", "Refreshes and rejuvenates", "Anti-ageing", "Removes dead skin cells"],
+    tiers: [["30 min", "$35"]],
+  },
+];
+---
+
+<BaseLayout
+  title="Services & prices | Tree House Spa, River Valley"
+  description="Body, essential oils, foot and prenatal massage, plus ear candling and body scrub at Tree House Spa, River Valley. See treatments, benefits and prices."
+  canonical="/services/"
+>
+  <section style="background:linear-gradient(180deg, var(--sand) 0%, var(--sand-deep) 100%);">
+    <div class="container" style="padding-block:clamp(3rem,7vw,4.5rem);max-width:680px;">
+      <div class="eyebrow">Treatments &amp; prices</div>
+      <h1 style="margin:1rem 0 0;font-size:clamp(2.2rem,5vw,3.2rem);line-height:1.08;">Our services</h1>
+      <p style="margin-top:1.25rem;font-size:1.1rem;color:var(--ink-dim);line-height:1.7;">
+        Treatments for men and women, by professionally trained therapists. Prices are per person. Walk-ins are welcome, though booking ahead is best for your preferred time.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container" style="padding-block:clamp(2.5rem,6vw,4.5rem);display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));">
+      {services.map((s) => (
+        <article style="background:var(--cream);border:1px solid var(--hair);border-radius:18px;padding:1.75rem;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <img src={s.icon} alt="" width="48" height="48" style="width:48px;height:48px;object-fit:contain;" />
+            <h2 style="margin:0;font-size:1.35rem;">{s.name}</h2>
+          </div>
+          <p style="margin:1rem 0 0;color:var(--ink-dim);font-size:0.97rem;line-height:1.65;">{s.desc}</p>
+
+          <ul style="margin:1.1rem 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:0.4rem;">
+            {s.benefits.map((b) => (
+              <li style="font-size:0.78rem;color:var(--moss);background:color-mix(in srgb, var(--moss) 10%, var(--cream));border:1px solid var(--hair);padding:0.25rem 0.6rem;border-radius:999px;">{b}</li>
+            ))}
+          </ul>
+
+          <div style="margin-top:1.25rem;padding-top:0.5rem;border-top:1px solid var(--hair);">
+            {s.tiers.map(([dur, price]) => (
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0.4rem 0;">
+                <span style="color:var(--ink-dim);font-size:0.95rem;">{dur}</span>
+                <span style="font-weight:700;color:var(--bark);">{price}</span>
+              </div>
+            ))}
+          </div>
+
+          <a href="/contact-us/" class="btn" style="justify-content:center;margin-top:1.25rem;">Book now</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
