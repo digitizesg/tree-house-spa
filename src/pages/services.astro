@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceIcon from "../components/ServiceIcon.astro";
 
 // Real services from the current site, with self-hosted icons.
 const services = [
@@ -68,7 +69,7 @@ const services = [
       {services.map((s) => (
         <article style="background:var(--cream);border:1px solid var(--hair);border-radius:18px;padding:1.75rem;display:flex;flex-direction:column;">
           <div style="display:flex;align-items:center;gap:1rem;">
-            <img src={s.icon} alt="" width="48" height="48" style="width:48px;height:48px;object-fit:contain;" />
+            <div class="svc-icon"><ServiceIcon name={s.name} size={34} /></div>
             <h2 style="margin:0;font-size:1.35rem;">{s.name}</h2>
           </div>
           <p style="margin:1rem 0 0;color:var(--ink-dim);font-size:0.97rem;line-height:1.65;">{s.desc}</p>

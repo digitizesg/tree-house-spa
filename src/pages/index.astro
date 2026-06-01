@@ -1,15 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Reviews from "../components/Reviews.astro";
+import ServiceIcon from "../components/ServiceIcon.astro";
 
-// Real services + pricing from the current site (treehousespa.com.sg).
 const services = [
-  { name: "Body Massage", tiers: [["60 min", "$65"], ["90 min", "$90"], ["120 min", "$115"]] },
-  { name: "Essential Oils Massage", tiers: [["60 min", "$72"], ["90 min", "$100"], ["120 min", "$130"]] },
-  { name: "Foot Massage", tiers: [["60 min", "$48"], ["90 min", "$68"], ["120 min", "$88"]] },
-  { name: "Prenatal Massage", tiers: [["60 min", "$65"], ["90 min", "$90"], ["120 min", "$115"]] },
-  { name: "Body Scrub", tiers: [["30 min", "$35"]] },
-  { name: "Ear Candling", tiers: [["30 min", "$35"]] },
+  { name: "Body Massage", icon: "service-icon-1.png", tiers: [["60 min", "$65"], ["90 min", "$90"], ["120 min", "$115"]] },
+  { name: "Essential Oils Massage", icon: "service-icon-3.png", tiers: [["60 min", "$72"], ["90 min", "$100"], ["120 min", "$130"]] },
+  { name: "Foot Massage", icon: "service-icon-4.png", tiers: [["60 min", "$48"], ["90 min", "$68"], ["120 min", "$88"]] },
+  { name: "Prenatal Massage", icon: "service-icon-5.png", tiers: [["60 min", "$65"], ["90 min", "$90"], ["120 min", "$115"]] },
+  { name: "Body Scrub", icon: "service-icon-2.png", tiers: [["30 min", "$35"]] },
+  { name: "Ear Candling", icon: "service-icon-6.png", tiers: [["30 min", "$35"]] },
 ];
 ---
 
@@ -40,37 +40,32 @@ const services = [
   <!-- Services -->
   <section id="services">
     <div class="container" style="padding-block:clamp(3.5rem,7vw,5.5rem);">
-      <div class="eyebrow">Treatments &amp; prices</div>
-      <h2 style="margin:0.75rem 0 0;font-size:clamp(1.8rem,3.5vw,2.6rem);">Our menu</h2>
+      <div class="eyebrow">Treatments</div>
+      <h2 style="margin:0.75rem 0 0;font-size:clamp(1.8rem,3.5vw,2.6rem);">Our services</h2>
       <p style="margin:1rem 0 0;color:var(--ink-dim);max-width:54ch;line-height:1.6;">
-        Prices are per person. Walk-ins are welcome, though booking ahead is best for your preferred time.
+        Treatments for men and women, by professionally trained therapists. Walk-ins are welcome, though booking ahead is best for your preferred time.
       </p>
-      <div style="margin-top:2.5rem;display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+      <div class="svc-grid">
         {services.map((s) => (
-          <article style="background:var(--cream);border:1px solid var(--hair);border-radius:16px;padding:1.6rem 1.75rem;">
-            <h3 style="margin:0 0 1rem;font-size:1.2rem;">{s.name}</h3>
-            {s.tiers.map(([dur, price]) => (
-              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0.45rem 0;border-top:1px solid var(--hair);">
-                <span style="color:var(--ink-dim);font-size:0.95rem;">{dur}</span>
-                <span style="font-weight:700;color:var(--moss);">{price}</span>
-              </div>
-            ))}
+          <article class="svc-card">
+            <div class="svc-card-head">
+              <div class="svc-icon"><ServiceIcon name={s.name} size={32} /></div>
+              <h3 style="margin:0;font-size:1.15rem;">{s.name}</h3>
+            </div>
+            <div>
+              {s.tiers.map(([dur, price]) => (
+                <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0.5rem 0;border-top:1px solid var(--hair);">
+                  <span style="color:var(--ink-dim);font-size:0.95rem;">{dur}</span>
+                  <span style="font-weight:700;color:var(--moss);">{price}</span>
+                </div>
+              ))}
+            </div>
           </article>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" style="background:var(--sand-deep);">
-    <div class="container" style="padding-block:clamp(3.5rem,7vw,5.5rem);max-width:680px;">
-      <div class="eyebrow">Who we are</div>
-      <h2 style="margin:0.75rem 0 0;font-size:clamp(1.8rem,3.5vw,2.6rem);">Twelve years of good hands</h2>
-      <p style="margin-top:1.5rem;color:var(--ink-dim);font-size:1.05rem;line-height:1.7;">
-        Tree House Spa has been on River Valley Road for over twelve years, offering high quality massage for men and women
-        at affordable prices. Every therapist is a trained professional, and we hold a high standard of cleanliness throughout,
-        so every visit feels calm, private and properly looked after.
-      </p>
+      <div style="margin-top:2rem;">
+        <a href="/services/" class="btn-ghost">See full treatment details &rarr;</a>
+      </div>
     </div>
   </section>
 
