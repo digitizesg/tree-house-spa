@@ -2,6 +2,10 @@
    Tree House Spa — design tokens
    Calm, natural palette. Adjust freely once brand/logo is confirmed.
    ============================================================================= */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
 :root {
   --sand: #F6F2EA;      /* page background */
   --sand-deep: #ECE4D6; /* alternate sections */
