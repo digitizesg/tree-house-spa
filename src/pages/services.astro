@@ -47,6 +47,40 @@ const services = [
     tiers: [["30 min", "$35"]],
   },
 ];
+
+// FAQs lifted from the current treehousespa.com.sg site, lightly reworded.
+const faqs = [
+  {
+    q: "Do I need to book in advance?",
+    a: "No. We welcome walk-ins on a first come, first served basis. During peak hours, or if you would like the couples room, it is best to call ahead so we can hold a time for you.",
+  },
+  {
+    q: "Do you have shower facilities?",
+    a: "Yes. Every massage room has complimentary shower facilities, with shampoo, body wash and towels for use before or after your treatment.",
+  },
+  {
+    q: "Do you have a couples room?",
+    a: "Yes, we have a couples massage room. It can get busy at peak times, so a quick call ahead helps us make sure it is free for you.",
+  },
+  {
+    q: "Can I customise my massage?",
+    a: "Yes. Our massages follow a standard flow, but we are happy to adjust the pressure or focus on particular areas. Just let your therapist know what you need.",
+  },
+  {
+    q: "Are your treatments for men and women?",
+    a: "Yes. All of our treatments are available for both men and women.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -94,4 +128,60 @@ const services = [
       ))}
     </div>
   </section>
+
+  <!-- FAQ -->
+  <section style="background:var(--sand-deep);">
+    <div class="container" style="padding-block:clamp(3rem,6vw,4.5rem);">
+      <div style="max-width:760px;">
+        <div class="eyebrow">Good to know</div>
+        <h2 style="margin:0.75rem 0 1.75rem;font-size:clamp(1.7rem,3.2vw,2.3rem);">Frequently asked questions</h2>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          {faqs.map((f) => (
+            <details class="faq">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </BaseLayout>
+
+<style>
+  .faq {
+    background: var(--cream);
+    border: 1px solid var(--hair);
+    border-radius: 14px;
+    padding: 0 1.25rem;
+  }
+  .faq summary {
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    color: var(--bark);
+    padding: 1.1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+";
+    color: var(--moss);
+    font-size: 1.5rem;
+    line-height: 1;
+    font-weight: 400;
+    transition: transform 0.15s ease;
+  }
+  .faq[open] summary::after { transform: rotate(45deg); }
+  .faq p {
+    margin: 0 0 1.15rem;
+    color: var(--ink-dim);
+    line-height: 1.7;
+    font-size: 0.97rem;
+  }
+</style>
