@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Reviews from "../components/Reviews.astro";
 import ServiceIcon from "../components/ServiceIcon.astro";
+import { Image } from "astro:assets";
+import heroImage from "../assets/hero.png";
 
 const services = [
   { name: "Body Massage", icon: "service-icon-1.png", tiers: [["60 min", "$65"], ["90 min", "$90"], ["120 min", "$115"]] },
@@ -26,14 +28,14 @@ const services = [
           High quality massage<br />on <span style="color:var(--moss);font-style:italic;">River Valley Road</span>
         </h1>
         <p style="margin-top:1.5rem;font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--ink-dim);line-height:1.65;max-width:52ch;">
-          Our trained team has been providing massage services on River Valley Road for over 12 years. We provide massages to both men and women at highly affordable rates.
+          Our trained team has been providing massage services on River Valley Road for over 13 years. We provide massages to both men and women at highly affordable rates.
         </p>
         <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
           <a href="tel:+6562356233" class="btn">Call to book</a>
           <a href="/services/" class="btn-ghost">See treatments</a>
         </div>
       </div>
-      <img src="/images/hero.png" alt="Tree House Spa treatment room" loading="eager" class="hero-img" />
+      <Image src={heroImage} alt="Tree House Spa treatment room" class="hero-img" widths={[400, 600, 805]} sizes="(min-width:880px) 48vw, 92vw" loading="eager" fetchpriority="high" />
     </div>
   </section>
 
