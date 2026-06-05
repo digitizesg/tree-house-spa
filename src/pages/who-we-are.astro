@@ -1,9 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 
-// Team from the current site. TODO: add real therapist photos (drop into
-// /public/images/team and swap the initial avatars for <img>).
+// Team roster. We only show therapists who have a photo (filename
+// "<name>-tree-house-spa.<ext>" in src/assets/team); order is preserved here.
 const team = ["Kelly", "Jasmine", "Amy", "Eileen", "Tina", "Yuki", "Lele", "Baby", "Anna", "Miko", "Eilln"];
+
+// Therapist headshots, keyed by first name (optimised + WebP at build time).
+const teamModules = import.meta.glob("../assets/team/*.{jpg,png}", { eager: true });
+const teamPhotos: Record<string, any> = {};
+for (const path in teamModules) {
+  const key = (path.split("/").pop() ?? "").replace(/-tree-house-spa\.(jpg|png)$/i, "").toLowerCase();
+  teamPhotos[key] = (teamModules[path] as any).default;
+}
+const teamWithPhotos = team.filter((name) => teamPhotos[name.toLowerCase()]);
+
+// Interior/space photos — optimised + converted to WebP at build time by astro:assets.
+const spaceModules = import.meta.glob("../assets/space/*.jpg", { eager: true });
+const spaceImages = Object.keys(spaceModules)
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  .map((k) => (spaceModules[k] as any).default);
 ---
 
 <BaseLayout
@@ -13,16 +29,18 @@ const team = ["Kelly", "Jasmine", "Amy", "Eileen", "Tina", "Yuki", "Lele", "Baby
 >
   <!-- Intro -->
   <section style="background:linear-gradient(180deg, var(--sand) 0%, var(--sand-deep) 100%);">
-    <div class="container" style="padding-block:clamp(3rem,7vw,5rem);max-width:680px;">
-      <div class="eyebrow">Who we are</div>
-      <h1 style="margin:1rem 0 0;font-size:clamp(2.2rem,5vw,3.2rem);line-height:1.08;">Meet our team</h1>
-      <p style="margin-top:1.5rem;font-size:1.1rem;color:var(--ink-dim);line-height:1.7;">
-        Located at 238 River Valley Road, Tree House Spa focuses on providing good quality massages at affordable prices.
-      </p>
-      <p style="margin-top:1rem;font-size:1.1rem;color:var(--ink-dim);line-height:1.7;">
-        We pride ourselves on providing a clean and comfortable environment for our customers, and on ensuring our massage
-        technicians are professionally trained to send you home relaxed.
-      </p>
+    <div class="container" style="padding-block:clamp(3rem,7vw,5rem);">
+      <div style="max-width:680px;">
+        <div class="eyebrow">Who we are</div>
+        <h1 style="margin:1rem 0 0;font-size:clamp(2.2rem,5vw,3.2rem);line-height:1.08;">Meet our team</h1>
+        <p style="margin-top:1.5rem;font-size:1.1rem;color:var(--ink-dim);line-height:1.7;">
+          Located at 238 River Valley Road, Tree House Spa focuses on providing good quality massages at affordable prices.
+        </p>
+        <p style="margin-top:1rem;font-size:1.1rem;color:var(--ink-dim);line-height:1.7;">
+          We pride ourselves on providing a clean and comfortable environment for our customers, and on ensuring our massage
+          technicians are professionally trained to send you home relaxed.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -31,11 +49,17 @@ const team = ["Kelly", "Jasmine", "Amy", "Eileen", "Tina", "Yuki", "Lele", "Baby
     <div class="container" style="padding-block:clamp(3rem,6vw,5rem);">
       <div class="eyebrow">Our therapists</div>
       <h2 style="margin:0.75rem 0 2.5rem;font-size:clamp(1.7rem,3.2vw,2.3rem);">The people who'll look after you</h2>
-      <div style="display:grid;gap:1.5rem 1rem;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));">
-        {team.map((name) => (
+      <div style="display:grid;gap:1.75rem 1rem;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));">
+        {teamWithPhotos.map((name) => (
           <div style="text-align:center;">
-            <div aria-hidden="true" style="width:84px;height:84px;margin:0 auto;border-radius:50%;background:color-mix(in srgb, var(--moss) 16%, var(--cream));color:var(--moss);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:1.9rem;border:1px solid var(--hair);">
-              {name[0]}
+            <div style="width:104px;height:104px;margin:0 auto;border-radius:50%;overflow:hidden;border:1px solid var(--hair);background:var(--cream);">
+              <Image
+                src={teamPhotos[name.toLowerCase()]}
+                alt={`${name}, massage therapist at Tree House Spa`}
+                widths={[104, 208]}
+                sizes="104px"
+                style="width:100%;height:100%;object-fit:cover;display:block;"
+              />
             </div>
             <div style="margin-top:0.75rem;font-weight:600;font-size:0.95rem;">{name}</div>
           </div>
@@ -44,14 +68,29 @@ const team = ["Kelly", "Jasmine", "Amy", "Eileen", "Tina", "Yuki", "Lele", "Baby
     </div>
   </section>
 
-  <!-- Our space (location gallery placeholder) -->
+  <!-- Our space -->
   <section id="space" style="background:var(--sand-deep);">
-    <div class="container" style="padding-block:clamp(3rem,6vw,5rem);max-width:680px;">
-      <div class="eyebrow">Our space</div>
-      <h2 style="margin:0.75rem 0 0;font-size:clamp(1.7rem,3.2vw,2.3rem);">Inside our River Valley spa</h2>
-      <p style="margin-top:1.25rem;color:var(--ink-dim);font-size:1.05rem;line-height:1.7;">
-        A calm, private setting kept to a high standard of cleanliness. {/* TODO: add interior photos as a gallery */}
-      </p>
+    <div class="container" style="padding-block:clamp(3rem,6vw,5rem);">
+      <div style="max-width:680px;">
+        <div class="eyebrow">Our space</div>
+        <h2 style="margin:0.75rem 0 0;font-size:clamp(1.7rem,3.2vw,2.3rem);">Inside our River Valley spa</h2>
+        <p style="margin-top:1.25rem;color:var(--ink-dim);font-size:1.05rem;line-height:1.7;">
+          A calm, private setting kept to a high standard of cleanliness.
+        </p>
+      </div>
+      <div style="margin-top:2.25rem;display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+        {spaceImages.map((img, i) => (
+          <div style="aspect-ratio:1/1;border-radius:14px;overflow:hidden;border:1px solid var(--hair);background:var(--cream);">
+            <Image
+              src={img}
+              alt={`Inside Tree House Spa, view ${i + 1}`}
+              widths={[260, 520]}
+              sizes="(min-width:900px) 25vw, (min-width:600px) 45vw, 90vw"
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -63,7 +102,7 @@ const team = ["Kelly", "Jasmine", "Amy", "Eileen", "Tina", "Yuki", "Lele", "Baby
         <h2 style="margin:0.75rem 0 1.25rem;font-size:clamp(1.6rem,3vw,2.1rem);">Drop by or call ahead</h2>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;">
           <a href="tel:+6562356233" class="btn">Call +65 6235 6233</a>
-          <a href="https://maps.google.com/?q=238+River+Valley+Road+Singapore+238296" target="_blank" rel="noopener" class="btn-ghost">Get directions</a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Tree+House+Spa&destination_place_id=ChIJh9kHG5kZ2jER7YWaAoay7Ps" target="_blank" rel="noopener" class="btn-ghost">Get directions</a>
         </div>
       </div>
       <div style="font-size:1rem;color:var(--ink-dim);line-height:1.9;">
