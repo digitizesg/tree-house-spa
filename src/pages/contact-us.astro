@@ -22,7 +22,7 @@ const inputCss =
   </section>
 
   <section>
-    <div class="container" style="padding-block:clamp(2.5rem,6vw,4.5rem);display:grid;gap:2.5rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:start;">
+    <div class="container" style="padding-block:clamp(2.5rem,6vw,4.5rem);display:grid;gap:2.5rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:start;">
       <!-- Details + map -->
       <div>
         <div style="font-size:1rem;color:var(--ink-dim);line-height:1.9;">
@@ -60,7 +60,7 @@ const inputCss =
             <span style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.35rem;">Your message <span style="color:var(--ink-mute);font-weight:400;">(optional)</span></span>
             <textarea name="message" rows="4" style={inputCss}></textarea>
           </label>
-          <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
+          <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;width:1px;height:1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);" />
           <button type="submit" class="btn" style="justify-content:center;">Send message</button>
           <p id="form-status" role="status" style="margin:0;font-size:0.9rem;min-height:1.2em;"></p>
         </form>

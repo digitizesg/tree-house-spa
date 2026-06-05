@@ -1,5 +1,4 @@
 ---
-// TODO: confirm nav items once the page structure is set.
 const links = [
   { href: "/services/", label: "Services" },
   { href: "/who-we-are/", label: "Who we are" },
@@ -7,27 +6,128 @@ const links = [
 ];
 ---
 
-<header style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--sand) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);">
-  <div style="background:var(--moss);color:var(--sand);">
-    <div class="container" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0.25rem 1.5rem;padding-block:0.5rem;font-size:0.85rem;text-align:center;">
+<header class="site-header">
+  <div class="topbar">
+    <div class="container topbar__inner">
       <span>Call us:
-        <a href="tel:+6562356233" style="color:var(--sand);font-weight:700;">+65 6235 6233</a>
+        <a href="tel:+6562356233">+65 6235 6233</a>
         or
-        <a href="tel:+6590018721" style="color:var(--sand);font-weight:700;">+65 9001 8721</a>
+        <a href="tel:+6590018721">+65 9001 8721</a>
       </span>
-      <span style="opacity:0.55;">|</span>
-      <span><strong style="font-weight:700;">Open</strong> 10am to 10:30pm, every day</span>
+      <span class="topbar__sep">|</span>
+      <span><strong>Open</strong> 10am to 10:30pm, every day</span>
     </div>
   </div>
-  <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:68px;">
-    <a href="/" aria-label="Tree House Spa home" style="display:flex;align-items:center;">
-      <img src="/images/ths-logo.svg" alt="Tree House Spa" style="height:34px;width:auto;display:block;" />
+  <div class="container navbar">
+    <a href="/" aria-label="Tree House Spa home" class="brand">
+      <img src="/images/ths-logo.svg" alt="Tree House Spa" />
     </a>
-    <nav style="display:flex;align-items:center;gap:1.75rem;">
+    <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-menu">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+    <nav id="site-menu" class="nav-links">
       {links.map((l) => (
-        <a href={l.href} style="font-size:0.95rem;color:var(--ink-dim);">{l.label}</a>
+        <a href={l.href}>{l.label}</a>
       ))}
       <a href="tel:+6562356233" class="btn">Call to book</a>
     </nav>
   </div>
 </header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--sand) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .topbar { background: var(--moss); color: var(--sand); }
+  .topbar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem 1.5rem;
+    padding-block: 0.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  .topbar a { color: var(--sand); font-weight: 700; }
+  .topbar__sep { opacity: 0.55; }
+  @media (max-width: 560px) { .topbar__sep { display: none; } }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .brand { display: flex; align-items: center; }
+  .brand img { height: 34px; width: auto; display: block; }
+
+  .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+  .nav-links > a:not(.btn) { font-size: 0.95rem; color: var(--ink-dim); }
+
+  .nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-right: -0.5rem;
+    border: 0;
+    background: transparent;
+    color: var(--bark);
+    cursor: pointer;
+  }
+  .nav-toggle svg { width: 26px; height: 26px; }
+  .nav-toggle .icon-close { display: none; }
+  .nav-toggle[aria-expanded="true"] .icon-menu { display: none; }
+  .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
+
+  @media (max-width: 768px) {
+    .nav-toggle { display: inline-flex; }
+    .nav-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0.5rem 1.5rem 1.25rem;
+      background: var(--sand);
+      border-bottom: 1px solid var(--hair);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+      display: none;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links > a:not(.btn) {
+      font-size: 1.05rem;
+      color: var(--bark);
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--hair);
+    }
+    .nav-links .btn { justify-content: center; margin-top: 1rem; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("site-menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const open = menu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    menu.querySelectorAll("a").forEach((a) =>
+      a.addEventListener("click", () => {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      })
+    );
+  }
+</script>
