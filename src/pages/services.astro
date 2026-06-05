@@ -6,6 +6,7 @@ import ServiceIcon from "../components/ServiceIcon.astro";
 const services = [
   {
     name: "Body Massage",
+    popular: true,
     icon: "/images/services/service-icon-1.png",
     desc: "Our signature treatment to de-stress and relieve muscle pain. Rubbing and manipulation techniques improve lymphatic function and circulation, and can help ease tension-related headaches.",
     benefits: ["Promotes skin health", "Increases blood circulation", "Reduces muscle pain", "Supports the lymphatic system", "Improves sleep"],
@@ -13,6 +14,7 @@ const services = [
   },
   {
     name: "Essential Oils Massage",
+    popular: true,
     icon: "/images/services/service-icon-3.png",
     desc: "A relaxing treatment using essential oils, combining rubbing and manipulation to ease muscle soreness, support recovery and calm the mind.",
     benefits: ["Promotes blood circulation", "Reduces muscle tiredness", "Aids detoxification", "Increases metabolism", "Reduces stress"],
@@ -20,6 +22,7 @@ const services = [
   },
   {
     name: "Foot Massage",
+    popular: true,
     icon: "/images/services/service-icon-4.png",
     desc: "Reflexology that improves circulation and helps the body relax. Regular sessions support immune function and help remove toxins through deep relaxation.",
     benefits: ["Promotes blood circulation", "Reduces muscle tiredness", "Aids detoxification", "Increases metabolism", "Reduces stress"],
@@ -105,6 +108,7 @@ const faqSchema = {
           <div style="display:flex;align-items:center;gap:1rem;">
             <div class="svc-icon"><ServiceIcon name={s.name} size={34} /></div>
             <h2 style="margin:0;font-size:1.35rem;">{s.name}</h2>
+            {s.popular && <span class="popular-badge">Popular</span>}
           </div>
           <p style="margin:1rem 0 0;color:var(--ink-dim);font-size:0.97rem;line-height:1.65;">{s.desc}</p>
 
@@ -151,6 +155,21 @@ const faqSchema = {
 </BaseLayout>
 
 <style>
+  .popular-badge {
+    margin-left: auto;
+    align-self: flex-start;
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--clay);
+    padding: 0.28rem 0.6rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
   .faq {
     background: var(--cream);
     border: 1px solid var(--hair);
