@@ -4,29 +4,37 @@ import data from "../data/reviews.json";
 const { rating = 0, count = 0, reviews = [] } = data ?? {};
 const show = reviews.length > 0;
 const stars = (n: number) => "★★★★★".slice(0, Math.round(n)) + "☆☆☆☆☆".slice(0, 5 - Math.round(n));
-// Show the strongest few, longest text last so cards stay balanced.
-const featured = reviews.slice(0, 6);
+// Summary card fills the first slot; show up to 5 real reviews to complete a 2x3 grid.
+const featured = reviews.slice(0, 5);
+const googleReviewsUrl = "https://search.google.com/local/reviews?placeid=ChIJh9kHG5kZ2jER7YWaAoay7Ps";
 ---
 
 {show && (
   <section id="reviews">
     <div class="container" style="padding-block:clamp(3.5rem,7vw,5.5rem);">
-      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:0.75rem 1.25rem;">
-        <div class="eyebrow">Reviews</div>
-        <div style="display:flex;align-items:center;gap:0.6rem;">
-          <span style="color:var(--clay);font-size:1.1rem;letter-spacing:0.1em;">{stars(rating)}</span>
-          <span style="font-weight:700;">{rating.toFixed(1)}</span>
-          <span style="color:var(--ink-mute);font-size:0.92rem;">from {count} Google reviews</span>
-        </div>
-      </div>
+      <div class="eyebrow">Reviews</div>
       <h2 style="margin:0.75rem 0 0;font-size:clamp(1.8rem,3.5vw,2.6rem);">What our customers say</h2>
 
-      <div style="margin-top:2.5rem;display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+      <div class="reviews-grid">
+        <figure class="review-card review-card--summary">
+          <span style="color:var(--clay);font-size:1.3rem;letter-spacing:0.12em;">{stars(rating)}</span>
+          <div style="display:flex;align-items:baseline;gap:0.5rem;margin-top:0.6rem;">
+            <span style="font-size:2.6rem;font-weight:700;line-height:1;color:var(--bark);">{rating.toFixed(1)}</span>
+            <span style="color:var(--ink-mute);font-size:0.95rem;">/ 5</span>
+          </div>
+          <p style="margin:0.75rem 0 0;color:var(--ink-dim);font-size:0.95rem;line-height:1.6;">
+            Based on <strong>{count}</strong> Google reviews from our guests.
+          </p>
+          <a href={googleReviewsUrl} target="_blank" rel="noopener" style="margin-top:auto;padding-top:1rem;font-size:0.85rem;font-weight:600;color:var(--clay);text-decoration:none;">
+            Read all reviews on Google &rarr;
+          </a>
+        </figure>
+
         {featured.map((r: any) => (
-          <figure style="margin:0;background:var(--cream);border:1px solid var(--hair);border-radius:16px;padding:1.6rem;display:flex;flex-direction:column;">
+          <figure class="review-card">
             <span style="color:var(--clay);letter-spacing:0.08em;">{stars(r.rating)}</span>
             <blockquote style="margin:0.9rem 0 0;color:var(--ink-dim);font-size:0.95rem;line-height:1.6;">{r.text}</blockquote>
-            <figcaption style="margin-top:1rem;font-size:0.85rem;color:var(--bark);font-weight:600;">
+            <figcaption style="margin-top:auto;padding-top:1rem;font-size:0.85rem;color:var(--bark);font-weight:600;">
               {r.author}<span style="color:var(--ink-mute);font-weight:400;"> &middot; {r.relativeTime}</span>
             </figcaption>
           </figure>
@@ -35,3 +43,31 @@ const featured = reviews.slice(0, 6);
     </div>
   </section>
 )}
+
+<style>
+  .reviews-grid {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 600px) {
+    .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 900px) {
+    .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .review-card {
+    margin: 0;
+    background: var(--cream);
+    border: 1px solid var(--hair);
+    border-radius: 16px;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .review-card--summary {
+    border-color: var(--clay);
+    box-shadow: inset 0 0 0 1px var(--clay);
+  }
+</style>
